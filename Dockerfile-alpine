@@ -1,0 +1,41 @@
+# Use minimal base image
+FROM python:3.11-alpine
+
+# Environment variables
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+# Copy application files
+COPY . /app
+# Set working directory
+WORKDIR /app
+
+# Install build dependencies and Nginx
+RUN apk update && apk add --no-cache \
+    gcc \
+    musl-dev \
+    nginx \
+    bash \
+    libffi-dev \
+    openssl-dev \
+    python3-dev \
+    py3-pip \
+    linux-headers \
+    make \
+    && pip install --no-cache-dir --upgrade pip
+
+# Copy dependencies and install
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Nginx config
+RUN rm /etc/nginx/http.d/default.conf
+COPY details_nginx.conf /etc/nginx/http.d/default.conf
+
+# Make script executable
+RUN chmod +x start_gunicorn.sh
+
+# Expose port
+EXPOSE 80
+
+# Start Nginx and Gunicorn (minimal approach)
+CMD ["sh", "-c", "nginx && ./start_gunicorn.sh && tail -f /dev/null"]

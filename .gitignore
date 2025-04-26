@@ -5,17 +5,6 @@ __pycache__/
 *.pyc
 *.lock
 
-# folders
-bin
-include
-lib
-lib64
-
-# Byte-compiled and cache files
-__pycache__/
-*.py[cod]
-*.swp
-*.swo
 
 # Virtual environment
 venv/
@@ -25,63 +14,3 @@ env/
 pip-log.txt
 pip-wheel-metadata/
 
-# Environment variables
-*.env
-.env.local
-instance/
-
-# Logs and database
-*.log
-*.sqlite3
-*.db
-db.sqlite3
-
-# IDE & Editor files
-.vscode/
-.idea/
-*.iml
-
-# OS-specific files
-.DS_Store
-Thumbs.db
-
-# Compiled files
-*.so
-*.o
-*.pyc
-*.pyo
-
-# Coverage reports
-htmlcov/
-.coverage
-coverage.xml
-*.cover
-
-# Flask-related
-instance/
-config.py
-
-# Node.js dependencies (if using npm for frontend assets)
-node_modules/
-package-lock.json
-yarn.lock
-npm-debug.log
-yarn-error.log
-
-# Start Bootstrap assets (if downloaded separately)
-startbootstrap-*/
-dist/
-build/
-
-# If using SCSS/SASS and transpilers
-*.map
-.sass-cache/
-*.scssc
-*.sass-cache
-
-# Minified files (optional, if using build process)
-*.min.js
-*.min.css
-
-# Ignore all MP4 files in the project
-*.mp4

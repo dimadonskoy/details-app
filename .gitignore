@@ -4,7 +4,7 @@ __pycache__/
 .vscode
 *.pyc
 *.lock
-
+.DS_Store
 
 # Virtual environment
 venv/

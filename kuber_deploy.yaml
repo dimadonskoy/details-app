@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: details-app
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: details-app
+  template:
+    metadata:
+      labels:
+        app: details-app
+    spec:
+      containers:
+      - name: details-app
+        image: crooper/details-app:latest
+        ports:
+        - containerPort: 80

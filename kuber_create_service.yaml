@@ -2,13 +2,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: details-app
+  namespace: details-app
 spec:
   selector:
     app: details-app
   type: NodePort
   ports:
-    - protocol: TCP
-      port: 80         # Cluster-internal service port
-      targetPort: 80   # Container's port
-      nodePort: 8000   # External port exposed on the node
-
+  - protocol: TCP
+    port: 80 # Cluster-internal service port
+    targetPort: 80 # Container's port
+    nodePort: 8000 # External port exposed on the node

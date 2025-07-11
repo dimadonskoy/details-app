@@ -1,23 +1,24 @@
-FROM python:3.13-alpine AS base
+# Base image
+FROM python:3.11-slim
 
-# Copy app source code
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
 COPY . /app
-
-# Set working directory
 WORKDIR /app
 
-# Install build tools and pip dependencies
-RUN apk add --no-cache build-base git python3-dev libffi-dev openssl-dev
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Create virtual environment
-RUN python -m venv /app/venv
+RUN apt-get update && \
+    apt-get install -y nginx && \
+    rm -rf /var/lib/apt/lists/*
 
-# Copy dependency file and install
-RUN /app/venv/bin/pip install --upgrade pip \
-    && /app/venv/bin/pip install -r requirements.txt
+RUN rm /etc/nginx/sites-enabled/default
+COPY details_nginx.conf /etc/nginx/sites-enabled/default
 
-# Expose ports
+RUN chmod +x start_gunicorn.sh
+
 EXPOSE 80
 
-# Start services with virtualenv activated
-CMD ["sh", "-c", ". /app/venv/bin/activate && nginx && ./start_gunicorn.sh && tail -f /dev/null"]
+CMD ["bash", "-c", "service nginx start && ./start_gunicorn.sh && tail -f /dev/null"]
+

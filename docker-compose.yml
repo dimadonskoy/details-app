@@ -1,0 +1,9 @@
+services:
+  details-app:
+    container_name: details-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    restart: always
